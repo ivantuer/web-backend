@@ -1,0 +1,341 @@
+swagger: "2.0"
+info:
+  description: "This is a alarm app documentation"
+  version: "1.0.0"
+  title: "Alarm Clock app"
+  contact:
+    email: "ivantuer@gmail.com"
+schemes:
+- "https"
+- "http"
+paths:
+  /auth/sign-up:
+    post:
+      tags:
+      - "Auth"
+      summary: "Sign Up"
+      description: "Register User"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            email:
+              type: "string"
+            password:
+              type: "string"
+            gender:
+              type: "string"
+            birthday:
+              type: "string"
+            id:
+              type: "string"
+            token:
+              type: "string"
+      responses:
+        "400":
+          description: "All input is required"
+        "409":
+          description: "User with such email already exists."
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+              email:
+                type: "string"
+              password:
+                type: "string"
+              gender:
+                type: "string"
+              birthday:
+                type: "string"
+              id:
+                type: "string"
+              token:
+                type: "string"
+  /auth/login:
+    post:
+      tags:
+      - "Auth"
+      summary: "Log In"
+      description: "Log In"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Email and password"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: "string"
+            password:
+              type: "string"
+       
+      responses:
+        "400":
+          description: "All input is required"
+        "401":
+          description: "Invalid credentials."
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+              email:
+                type: "string"
+              password:
+                type: "string"
+              gender:
+                type: "string"
+              birthday:
+                type: "string"
+              id:
+                type: "string"
+              token:
+                type: "string"
+  /auth/me:
+    get:
+      tags:
+      - "User"
+      summary: "Get logged user info"
+      description: "Get logged user info"
+      produces:
+      - "application/json"
+       
+      responses:
+        "400":
+          description: "No such user"
+        "401":
+          description: "Invalid token."
+        "403":
+          description: "A token is required for authentication."
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+              email:
+                type: "string"
+              password:
+                type: "string"
+              gender:
+                type: "string"
+              birthday:
+                type: "string"
+              id:
+                type: "string"
+    post:
+      tags:
+      - "User"
+      summary: "Update logged user info"
+      description: "Update logged user info"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "All editable user fields"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            gender:
+              type: "string"
+            birthday:
+              type: "string"
+       
+      responses:
+        "400":
+          description: "No such user"
+        "401":
+          description: "Invalid token."
+        "403":
+          description: "A token is required for authentication."
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+              email:
+                type: "string"
+              gender:
+                type: "string"
+              birthday:
+                type: "string"
+              id:
+                type: "string"
+ 
+ 
+  /alarm:
+    post:
+      tags:
+      - "Alarm"
+      summary: "Add alarm"
+      description: "Add alarm"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Alarm info"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            active:
+              type: boolean
+            time:
+              type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              active:
+                type: "string"
+              id:
+                type: "string"
+              time:
+                type: "string"
+              user:
+                type: "object"
+        "400":
+          description: "All input is required."
+        "401":
+          description: "Invalid token."
+        "403":
+          description: "A token is required for authentication."
+          
+    get:
+      tags:
+      - "Alarm"
+      summary: "Get all created by logged user alarms"
+      description: "Get all created by logged user alarms"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              active:
+                type: "string"
+              id:
+                type: "string"
+              time:
+                type: "string"
+              user:
+                type: "object"
+        "401":
+          description: "Invalid token."
+        "403":
+          description: "A token is required for authentication."
+    put:
+      tags:
+      - "Alarm"
+      summary: "Add alarm"
+      description: "Add alarm"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Alarm info"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            active:
+              type: boolean
+            time:
+              type: "string"
+            id:
+              type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              active:
+                type: "string"
+              id:
+                type: "string"
+              time:
+                type: "string"
+              user:
+                type: "object"
+        "400":
+          description: "All input is required."
+        "401":
+          description: "Invalid token."
+        "403":
+          description: "A token is required for authentication."
+  /alarm/{id}:
+    delete:
+      tags:
+      - "Alarm"
+      summary: "Add alarm"
+      description: "Add alarm"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        type: "string"
+        description: "Id of alarm"
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              active:
+                type: "string"
+              id:
+                type: "string"
+              time:
+                type: "string"
+              user:
+                type: "object"
+        "400":
+          description: "Id is needed"
+        "401":
+          description: "Invalid token."
+        "403":
+          description: "A token is required for authentication."
+  
